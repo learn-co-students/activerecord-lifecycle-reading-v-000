@@ -4,6 +4,9 @@ class Post < ActiveRecord::Base
   before_validation :make_title_case 
   belongs_to :author
 
+  #before save example, does not modify model
+  #before_save :email_author_about_post
+
   private
 
   def is_title_case
