@@ -1,8 +1,7 @@
 class Post < ActiveRecord::Base
 
-  
-  after_create :make_title_case 
   after_create :is_title_case 
+  after_create :make_title_case 
   belongs_to :author
 
   private
