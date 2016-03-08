@@ -4,6 +4,8 @@ class Post < ActiveRecord::Base
   before_validation :make_title_case 
   belongs_to :author
 
+  before_validation :make_title_case
+
   private
 
   def is_title_case
