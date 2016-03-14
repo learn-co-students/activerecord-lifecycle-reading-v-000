@@ -1,4 +1,4 @@
-require 'rails_helper'
+ require 'rails_helper'
 
 describe 'navigate' do
   before do
@@ -33,7 +33,7 @@ describe 'form' do
 
     click_on "Update Post"
 
-    expect(page).to have_content("My edit")
+    expect(page).to have_content("My Edit")
   end
 end
 
