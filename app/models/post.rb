@@ -1,3 +1,4 @@
+
 class Post < ActiveRecord::Base
 
   validate :is_title_case 
