@@ -1,6 +1,6 @@
 ## Objectives
 
-  1. Understand the conceot of AR Lifecycle methods
+  1. Understand the concept of AR Lifecycle methods
   2. Use `before_save`, `before_create`, and `before_validation`
   3. Understand when to use `before_validation` vs. `before_save`
 
@@ -8,12 +8,12 @@
 
 Now that you are integrating ActiveRecord into Rails, we must first have a quick discussion about how developers can control the "lifecycle" of our object. This means that it can be nice to inject our code every time ActiveRecord does something to our model. There are a ton of different places we can inject our code. In this reading we are going to discuss the most common ones. Before we begin, some quick terminology. Everything we cover here are called "Active Record Lifecycle Callbacks". Many people just call them callbacks. It's a bit shorter.
 
-Take a look at the blog app that is included. It's pretty simple. We have a `Post` model and a few views. The `Post` `belongs_to` an `Author`. Also in the `Post` model you'll notice a validation to make sure that post tiles are in title case. Title case means every word starts with a capital letter.
+Take a look at the blog app that is included. It's pretty simple. We have a `Post` model and a few views. The `Post` `belongs_to` an `Author`. Also in the `Post` model you'll notice a validation to make sure that post titles are in title case. Title case means every word starts with a capital letter.
 
 While this validation is great, there is a method provided by Rails called `#titlecase` that will do this for us. I still want this validation, but let's make it so that just automatically before we save the record it runs `#titlecase`. What a convenience we are providing to our users! We are going to use our first callback, `before_save`. We use this similar to how you use `has_many` or `validates`. They are at the top of your model files. First let's write our method to actually run the `#titlecase` method.
 
 ```ruby
-# posts.rb
+# post.rb
 
   def make_title_case
     self.title = self.title.titlecase
@@ -54,7 +54,7 @@ p = Post.create(title: "testing")
 # => #<Post id: nil, title: "testing", description: nil, created_at: nil, updated_at: nil, post_status: nil, author_id: nil>
 ```
 
-Wait! There was no `INSERT` SQL command issues. In fact, we see the `rollback transaction` line. That means that it didn't actually save to the database. If we do `p.valid?` right now it will return `false`. That's not right. We automatically title case things. The validation should pass! Then after reading much documentation, it turns out that the `before_save` is called **after** validation occurs. So it Rails goes `is valid?` nope! stop!. It never makes it to `before_save`. Let's change our callback to the `before_validation` callback. This one happens **before** validation. That means that first our `before_validation` code works, which title cases the title, *then* the validation runs, which passes! Here is the final code:
+Wait! There was no `INSERT` SQL command issued. In fact, we see the `rollback transaction` line. That means that it didn't actually save to the database. If we do `p.valid?` right now it will return `false`. That's not right. We automatically title case things. The validation should pass! Then after reading much documentation, it turns out that the `before_save` is called **after** validation occurs. So Rails goes `is valid?` "Nope! Stop!", and never makes it to `before_save`. Let's change our callback to the `before_validation` callback. This one happens **before** validation. That means that first our `before_validation` code works, which title cases the title, *then* the validation runs, which passes! Here is the final code:
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -79,7 +79,7 @@ class Post < ActiveRecord::Base
 end
 ```
 
-Here is a rule of thumb: **Whenever you are modifing a attribute of the model, use `before_validation`. If you are doing some other action, then use `before_save`.**
+Here is a rule of thumb: **Whenever you are modifying an attribute of the model, use `before_validation`. If you are doing some other action, then use `before_save`.**
 
 ### Before Save
 
@@ -118,3 +118,7 @@ end
 Before you move on, let's cover one last callback that is super useful. This one is called `before_create`. `before_create` is very close to `before_save` with one major difference: it only gets called when a model is created for the first time. This means not every time the object is persisted, just when it is **new**. 
 
 For more information on all of the callback available to you, check out [this amazing rails guide](http://guides.rubyonrails.org/active_record_callbacks.html)
+
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/activerecord-lifecycle-reading'>ActiveRecord Lifecycle Methods</a> on Learn.co and start learning to code for free.</p>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/activerecord-lifecycle-reading'>ActiveRecord Lifecycle Methods</a> on Learn.co and start learning to code for free.</p>
