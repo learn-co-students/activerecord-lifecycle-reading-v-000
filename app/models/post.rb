@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
 
   def is_title_case
     if title.split.any?{|w|w[0].upcase != w[0]}
-      errors.add(:title, "Title must be in title case")
+      errors.add(:title, "Title must be in title case!")
     end
   end
 
