@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
 
   validate :is_title_case 
-  before_validation :make_title_case 
+  before_validation :make_title_cases 
   belongs_to :author
 
   private
@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def make_title_case
+  def make_title_cases
     self.title = self.title.titlecase
   end
 end
