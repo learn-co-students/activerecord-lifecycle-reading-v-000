@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   validate :is_title_case 
   before_validation :make_title_case 
   belongs_to :author
+  before_save :make_title_case
 
   private
 
