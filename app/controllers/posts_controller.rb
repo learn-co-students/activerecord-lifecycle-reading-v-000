@@ -26,7 +26,7 @@ class PostsController < ApplicationController
 	def edit
 	  @post = Post.find(params[:id])
 	end
-
+end
 # private
 
 # 	def params
@@ -34,4 +34,3 @@ class PostsController < ApplicationController
 # 	end
 
 #mail(to: @user.email, subject: 'Welcome to My Awesome Site')
-end
