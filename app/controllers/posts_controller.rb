@@ -26,4 +26,12 @@ class PostsController < ApplicationController
 	def edit
 	  @post = Post.find(params[:id])
 	end
+
+# private
+
+# 	def params
+# 		params.require(:post).permit(:title, :description)	
+# 	end
+
+#mail(to: @user.email, subject: 'Welcome to My Awesome Site')
 end
