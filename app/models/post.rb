@@ -1,9 +1,13 @@
+
 class Post < ActiveRecord::Base
 
   belongs_to :author
-  validate :is_title_case 
+  validate :is_title_case
 
-  private
+  # New Code!!
+  before_validation :make_title_case
+  # example: before_save :email_author_about_post  private
+  # also: before_create ...
 
   def is_title_case
     if title.split.any?{|w|w[0].upcase != w[0]}
@@ -14,4 +18,5 @@ class Post < ActiveRecord::Base
   def make_title_case
     self.title = self.title.titlecase
   end
+
 end
