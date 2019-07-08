@@ -19,7 +19,9 @@ class PostsController < ApplicationController
 
 	def update
 	  @post = Post.find(params[:id])
-	  @post.update(params.require(:post))
+	  #PostsController Update Method Not Working
+	  #https://github.com/learn-co-curriculum/activerecord-lifecycle-reading/issues/17
+	  @post.update(params.require(:post).permit!)
 	  redirect_to post_path(@post)
 	end
 
