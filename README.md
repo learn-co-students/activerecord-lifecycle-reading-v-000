@@ -10,7 +10,7 @@ Now that you are integrating ActiveRecord into Rails, we must first have a quick
 
 Take a look at the blog app that is included. It's pretty simple. We have a `Post` model and a few views. The `Post` `belongs_to` an `Author`. Also in the `Post` model you'll notice a validation to make sure that post titles are in title case. Title case means every word starts with a capital letter.
 
-While this validation is great, there is a method provided by Rails called `#titlecase` that will do this for us. I still want this validation, but let's make it so that just automatically before we save the record it runs `#titlecase`. What a convenience we are providing to our users! We are going to use our first callback, `before_save`. We use this similar to how you use `has_many` or `validates`. They are at the top of your model files. First let's write our method to actually run the `#titlecase` method.
+While this validation is great, there is a method provided by Rails called `#titlecase` that will do this for us. I still want this validation, but let's make it so that just automatically before we save the record it runs `#titlecase`. What a convenience we are providing to our users! We are going to use our first callback, `before_save`. We use this similar to how you use `has_many` or `validates`. They are at the top of your model files. First let's write our method to actually run the `#titlecase` method. 
 
 ```ruby
 # post.rb
