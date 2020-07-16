@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
   belongs_to :author
   validate :is_title_case 
 
+  before_save :tell_author_about_post
+
   private
 
   def is_title_case
@@ -13,5 +15,9 @@ class Post < ActiveRecord::Base
 
   def make_title_case
     self.title = self.title.titlecase
+  end
+
+  def tell_author_about_post
+    puts "Post saved into db!"
   end
 end
